@@ -30,6 +30,10 @@ User.prototype.generateToken = function() {
   return jwt.sign({id: this.id}, process.env.JWT)
 }
 
+User.prototype.isAdmin = function() {
+  return this.isAdmin;
+}
+
 /**
  * classMethods
  */
@@ -48,7 +52,7 @@ User.findByToken = async function(token) {
     const {id} = await jwt.verify(token, process.env.JWT)
     const user = User.findByPk(id)
     if (!user) {
-      throw 'nooo'
+      throw new Error('User not found')
     }
     return user
   } catch (ex) {
@@ -57,6 +61,16 @@ User.findByToken = async function(token) {
     throw error
   }
 }
+
+User.adminCheck = async function () {
+  const user = isAdmin();
+  if (!user.isAdmin) {
+    return res.status(401).json({ error: "Unauthorized" });
+  }
+  return user
+};
+
+
 
 /**
  * hooks
