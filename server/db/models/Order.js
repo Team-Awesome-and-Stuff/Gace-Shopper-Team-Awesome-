@@ -1,5 +1,7 @@
 const Sequelize = require("sequelize");
 const db = require("../db");
+const OrderProduct = require("./OrderProduct");
+const Product = require("./Product");
 
 const Order = db.define("order", {
   id: {
@@ -16,5 +18,12 @@ const Order = db.define("order", {
   
 
 })
+
+Order.prototype.getCart = async function(id) {
+  const cart = await OrderProduct.findAll({where: {orderId: id},
+  include: [Product]});
+  return cart
+}
+
 
 module.exports = Order;

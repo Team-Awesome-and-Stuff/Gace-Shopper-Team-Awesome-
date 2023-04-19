@@ -13,6 +13,12 @@ const OrderProduct = db.define("orderProduct", {
   productId: {
     type: Sequelize.INTEGER,
   },
+  quantity: {
+    type: Sequelize.INTEGER,
+    defaultValue: 1,
+    allowNull: false,
+  },
 })
 
 module.exports = OrderProduct;
+
