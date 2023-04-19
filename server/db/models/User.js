@@ -2,6 +2,7 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt');
+const Cart = require('./Cart')
 
 const SALT_ROUNDS = 5;
 
@@ -34,6 +35,11 @@ User.prototype.isAdmin = function() {
   return this.isAdmin;
 }
 
+User.prototype.getCart = async function() {
+  const cart = await Cart.findOne({where: {userId: this.id}});
+  return cart
+}
+
 /**
  * classMethods
  */
@@ -62,9 +68,9 @@ User.findByToken = async function(token) {
   }
 }
 
-User.adminCheck = async function () {
-  const user = isAdmin();
-  if (!user.isAdmin) {
+User.adminCheck = async function (token) {
+  const user = await User.findByToken(token);
+  if (!user.isAdmin()) {
     return res.status(401).json({ error: "Unauthorized" });
   }
   return user

@@ -4,7 +4,7 @@ const {
 } = require("../db");
 module.exports = router;
 
-
+//user get all products logged in/not logged in
 //Get/api/products
 router.get("/", async (req, res, next) => {
   try {
@@ -16,6 +16,7 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+//user get single product logged in/not logged in
 //Get/api/products/:id
 router.get("/:id", async (req, res, next) => {
   try {
@@ -26,55 +27,8 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-//Post/api/products
-router.post("/", async (req, res, next) => {
-  try {
-    const user = await User.adminCheck();
-    if (!user) {
-      res.status(401).send("Unauthorized");
-      return;
-    }
-    const product = await Products.create(req.body);
-    res.json(product);
-  } catch (err) {
-    next(err);
-  }
-});
 
-//Put/api/products/:id
-router.put("/:id", async (req, res, next) => {
-  try {
-    const user = await User.adminCheck();
-    if (!user) {
-      res.status(401).send("Unauthorized");
-      return;
-    }
-    const product = await Products.update(req.body, {
-      where: {
-        id: req.params.id,
-      },
-    });
-    res.json(product);
-  } catch (err) {
-    next(err);
-  }
-});
 
-//Delete/api/products/:id
-router.delete("/:id", async (req, res, next) => {
-  try {
-    const user = await User.adminCheck();
-    if (!user) {
-      res.status(401).send("Unauthorized");
-      return;
-    }
-    const product = await Products.destroy({
-      where: {
-        id: req.params.id,
-      },
-    });
-    res.json(product);
-  } catch (err) {
-    next(err);
-  }
-});
+
+
+
