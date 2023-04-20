@@ -4,7 +4,10 @@ import React, { useEffect, useState } from "react";
 // import { useParams } from "react-router-dom";
 // import { fetchSingleProduct } from "../app/SingleProductSlice";
 
-function SingleProduct() {
+function SingleProduct(props) {
+  console.log(props);
+  const { name, imageUrl, price } = props;
+
   // const { id } = useParams();
   // const dispatch = useDispatch();
   // const product = useSelector((state) => state.SingleProduct);
@@ -18,10 +21,9 @@ function SingleProduct() {
 
   return (
     <div>
-      <h1>{product.Title}</h1>
-      <img src={product.ImageUrl} />
-      <p>{product.Description}</p>
-      <h3>Price: ${product.Price}</h3>
+      <h1>{name}</h1>
+      <img src={imageUrl} />
+      <h3>Price: ${price}</h3>
     </div>
   );
 }
