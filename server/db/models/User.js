@@ -49,7 +49,7 @@ User.prototype.generateToken = function() {
 
 //this is probably wrong
 User.prototype.getOrder = async function(id) {
-  const order = await Order.findOne({where: {userId: id}});
+  const order = await Order.findOne({where: {userId: id, fulfilled: false}});
   return order
 }
 
