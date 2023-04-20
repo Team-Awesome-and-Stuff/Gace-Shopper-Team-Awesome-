@@ -2,9 +2,8 @@ const Sequelize = require("sequelize");
 const db = require("../db");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const Order = require('./Order');
+const Order = require("./Order");
 require("dotenv").config();
-
 
 const SALT_ROUNDS = 5;
 
@@ -39,19 +38,21 @@ User.prototype.correctPassword = function (candidatePwd) {
   return bcrypt.compare(candidatePwd, this.password);
 };
 
-User.prototype.generateToken = function() {
-  return jwt.sign({id: this.id}, process.env.JWT)
-}
+User.prototype.generateToken = function () {
+  return jwt.sign({ id: this.id }, process.env.JWT);
+};
 
 // User.prototype.isAdmin = function() {
 //   return this.isAdmin;
 // }
 
 //this is probably wrong
-User.prototype.getOrder = async function(id) {
-  const order = await Order.findOne({where: {userId: id, fulfilled: false}});
-  return order
-}
+User.prototype.getOrder = async function (id) {
+  const order = await Order.findOne({
+    where: { userId: id, fulfilled: false },
+  });
+  return order;
+};
 
 /**
  * classMethods
@@ -71,7 +72,7 @@ User.findByToken = async function (token) {
     const { id } = jwt.verify(token, process.env.JWT);
     const user = await User.findByPk(id);
     if (!user) {
-      throw new Error('User not found')
+      throw new Error("User not found");
     }
     return user;
   } catch (ex) {
@@ -86,10 +87,8 @@ User.adminCheck = async function (token) {
   if (!user.isAdmin) {
     return res.status(401).json({ error: "Unauthorized" });
   }
-  return user
+  return user;
 };
-
-
 
 /**
  * hooks
