@@ -1,7 +1,7 @@
 {
-  "name": "fs-app-template",
+  "name": "grace-shopper-team-awesome",
   "version": "2.0.0",
-  "description": "Some boilerplate code to get you started - get shakin'!",
+  "description": "the best shopper ever",
   "main": "index.js",
   "scripts": {
     "build": "webpack",
@@ -21,7 +21,9 @@
   "license": "MIT",
   "dependencies": {
     "bcrypt": "^5.1.0",
+    "chalk": "^5.2.0",
     "compression": "^1.7.4",
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
