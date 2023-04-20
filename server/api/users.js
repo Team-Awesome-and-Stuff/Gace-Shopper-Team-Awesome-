@@ -17,6 +17,7 @@ router.get('/profile', async (req, res, next) => {
 //Logged in users get user cart
 //Get/api/users/cart for logged in users
 router.get('/cart', async (req, res, next) => {
+  // res.send({data: 'User Cart Route Data'})
   try {
     const token = req.headers.authorization;
     const user = await User.findByToken(token);

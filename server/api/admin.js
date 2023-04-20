@@ -19,6 +19,7 @@ module.exports = router;
 //admin creates a single product
 //Post/api/admin/products 
 router.post("/products", async (req, res, next) => {
+  // res.send({data: "Admin post route data"});
   try {
     const user = await User.adminCheck();
     if (!user) {
@@ -35,6 +36,7 @@ router.post("/products", async (req, res, next) => {
 //admin updates a single product
 //Put/api/admin/products/:id 
 router.put("/products/:id", async (req, res, next) => {
+  // res.send({data: "Admin put route data"});
   try {
     const user = await User.adminCheck();
     if (!user) {
@@ -54,7 +56,8 @@ router.put("/products/:id", async (req, res, next) => {
 
 //admin deletes a single product
 //Delete/api/admin/products/:id 
-router.delete("/:id", async (req, res, next) => {
+router.delete("/products/:id", async (req, res, next) => {
+  // res.send({data: "Admin delete route data"});
   try {
     const user = await User.adminCheck();
     if (!user) {
@@ -75,6 +78,7 @@ router.delete("/:id", async (req, res, next) => {
 //admin retrieve all users
 //Get/api/admin/users 
 router.get('/users', async (req, res, next) => {
+  // res.send({data: "Admin get all users route data"});
   try {
     const user = await User.adminCheck();
     if (!user) {
@@ -82,10 +86,8 @@ router.get('/users', async (req, res, next) => {
       return;
     }
     const users = await User.findAll({
-      // explicitly select only the id and username fields - even though
-      // users' passwords are encrypted, it won't help if we just
-      // send everything to anyone who asks!
-      attributes: ['id', 'username']
+      
+      attributes: ['name', 'email']
     })
     res.json(users)
   } catch (err) {
@@ -96,6 +98,7 @@ router.get('/users', async (req, res, next) => {
 //admin retrieve user by id
 //get/api/admin/users/:id 
 router.get('/users/:id', async (req, res, next) => {
+  // res.send({data: "Admin get user by id route data"});
   try {
     const user = await User.adminCheck();
     if (!user) {

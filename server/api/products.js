@@ -1,7 +1,5 @@
 const router = require("express").Router();
-const {
-  models: { Products, User },
-} = require("../db");
+const Products = require("../db/models/Product");
 module.exports = router;
 
 //user get all products logged in/not logged in
