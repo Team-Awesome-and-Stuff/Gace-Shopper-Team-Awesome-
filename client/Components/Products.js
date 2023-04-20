@@ -1,17 +1,25 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Route, Routes } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+// import { useSelector, useDispatch } from "react-redux";
+import { NavLink } from "react-router-dom";
 
-const Products = () => {
-  const dispatch = useDispatch();
-  const products = useSelector((state) => state.products);
+const Product = () => {
+  useEffect(() => {}, []);
+};
 
-  useEffect(() => {
-    dispatch(fetchproducts());
-  }, [dispatch]);
-}
+return (
+  <>
+    <div className="product-container">
+      {products.map((products) => (
+        <div className="products " key={products.id}>
+          <NavLink to={`/products/${products.id}`}>
+            <img className="product-images" src={products.ImageUrl} />
+            <h2> {products.Title}</h2>
+            <h3> Price: ${products.Price}</h3>
+          </NavLink>
+        </div>
+      ))}
+    </div>
+  </>
+);
 
-return  
-
-
-export default Products;
+export default Product;
