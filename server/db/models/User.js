@@ -2,6 +2,9 @@ const Sequelize = require("sequelize");
 const db = require("../db");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const Order = require('./Order');
+require("dotenv").config();
+
 
 const SALT_ROUNDS = 5;
 
@@ -16,12 +19,15 @@ const User = db.define("user", {
   },
   email: {
     type: Sequelize.STRING,
+    allNull: false,
   },
   password: {
     type: Sequelize.STRING,
+    allNull: false,
   },
   isAdmin: {
     type: Sequelize.BOOLEAN,
+    defaultValue: false,
   },
 });
 
@@ -33,17 +39,27 @@ User.prototype.correctPassword = function (candidatePwd) {
   return bcrypt.compare(candidatePwd, this.password);
 };
 
-User.prototype.generateToken = function () {
-  return jwt.sign({ id: this.id }, process.env.JWT);
-};
+User.prototype.generateToken = function() {
+  return jwt.sign({id: this.id}, process.env.JWT)
+}
+
+// User.prototype.isAdmin = function() {
+//   return this.isAdmin;
+// }
+
+//this is probably wrong
+User.prototype.getOrder = async function(id) {
+  const order = await Order.findOne({where: {userId: id, fulfilled: false}});
+  return order
+}
 
 /**
  * classMethods
  */
-User.authenticate = async function ({ username, password }) {
-  const user = await this.findOne({ where: { username } });
+User.authenticate = async function ({ email, password }) {
+  const user = await this.findOne({ where: { email } });
   if (!user || !(await user.correctPassword(password))) {
-    const error = Error("Incorrect username/password");
+    const error = Error("Incorrect email/password");
     error.status = 401;
     throw error;
   }
@@ -52,10 +68,10 @@ User.authenticate = async function ({ username, password }) {
 
 User.findByToken = async function (token) {
   try {
-    const { id } = await jwt.verify(token, process.env.JWT);
-    const user = User.findByPk(id);
+    const { id } = jwt.verify(token, process.env.JWT);
+    const user = await User.findByPk(id);
     if (!user) {
-      throw "nooo";
+      throw new Error('User not found')
     }
     return user;
   } catch (ex) {
@@ -64,6 +80,16 @@ User.findByToken = async function (token) {
     throw error;
   }
 };
+
+User.adminCheck = async function (token) {
+  const user = await User.findByToken(token);
+  if (!user.isAdmin) {
+    return res.status(401).json({ error: "Unauthorized" });
+  }
+  return user
+};
+
+
 
 /**
  * hooks
