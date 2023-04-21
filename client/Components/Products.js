@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-// import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
+import SingleProductPreview from "./SingleProductPreview";
 import SingleProduct from "./SingleProduct";
 
 const products = [
@@ -27,10 +28,10 @@ const Products = () => {
   return (
     <div className="product-container">
       {product ? (
-        product.map((products) => (
-          <div className="products" key={products.id}>
-            <NavLink to={`/products/${products.id}`}>
-              <SingleProduct products={products} />
+        product.map((singleProduct, index) => (
+          <div className="products" key={index}>
+            <NavLink to={`/products/${singleProduct.id}`}>
+              <SingleProductPreview products={singleProduct} />
             </NavLink>
           </div>
         ))
@@ -42,5 +43,3 @@ const Products = () => {
 };
 
 export default Products;
-
-//<SingleProduct />
