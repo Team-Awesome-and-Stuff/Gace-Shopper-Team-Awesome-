@@ -20,5 +20,23 @@ const OrderProduct = db.define("orderProduct", {
   },
 })
 
+OrderProduct.getCart = async (userId) => {
+    const cart = await OrderProduct.findOne({
+      where: {
+        userId,
+        fulfilled: false,
+      },
+      include: [
+        {
+          model: Product,
+          attributes: ['id', 'name', 'price', 'imageUrl'],
+        }
+      ]
+    });
+    if(!cart || cart.length === 0) {
+      const error = new Error("No cart found");
+    }
+    return cart;
+  } 
 module.exports = OrderProduct;
 
