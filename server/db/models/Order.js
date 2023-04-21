@@ -52,7 +52,7 @@ Order.getOrderByUser = async function (userId) {
 //Instance methods
 
 Order.prototype.addProduct = async function (productId, quantity = 1) {
-  const existingProduct = await this.getProducts({ where: { id: productId } });
+  const existingProduct = await Order.updateProductQuantity({ where: { id: productId } });
   let orderProduct;
   if (existingProduct.length > 0) {
     orderProduct = existingProduct[0].orderProduct;
