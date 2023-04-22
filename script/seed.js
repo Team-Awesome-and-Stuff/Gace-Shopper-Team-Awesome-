@@ -1,8 +1,8 @@
 "use strict";
-const {
-  db,
-  models: { User, Product, OrderProduct, Order },
-} = require("../server/db");
+const Product = require("../server/db/models/Product");
+const User = require("../server/db/models/User");
+const Order = require("../server/db/models/Order");
+const db = require("../server/db");
 
 /**
  * seed - this function clears the database, updates tables to
@@ -45,24 +45,12 @@ async function seed() {
   //Creating Orders
   const orders = await Promise.all([
     Order.create({
-      fulfilled: true,
+      fulfilled: false,
       userId: 1,
     }),
     Order.create({
       fulfilled: false,
       userId: 2,
-    }),
-  ]);
-
-  // Creating OrderProducts
-  const orderProducts = await Promise.all([
-    OrderProduct.create({
-      orderId: 1,
-      productId: 2,
-    }),
-    OrderProduct.create({
-      orderId: 2,
-      productId: 1,
     }),
   ]);
 
