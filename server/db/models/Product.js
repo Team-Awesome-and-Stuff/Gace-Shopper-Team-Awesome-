@@ -24,6 +24,9 @@ const Product = db.define('product', {
         type: Sequelize.STRING,
         allowNull: false,
     },
+    orderId:{
+        type: Sequelize.INTEGER,
+    }
 })
 
 //instance methods

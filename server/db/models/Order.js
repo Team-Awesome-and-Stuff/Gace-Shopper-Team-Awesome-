@@ -7,18 +7,23 @@ const Order = db.define('order', {
         primaryKey: true,
         autoIncrement: true,
     },
-    productId: {
+    userId: {
         type: Sequelize.INTEGER,
         allowNull: false,
+    },
+    productId: {
+       type: Sequelize.INTEGER,
+       allowNull: false,
+       defaultValue: 1,
     },
     quantity: {
         type: Sequelize.INTEGER,
         allowNull: false,
     },
-    total: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
-    },
+    // total: {
+    //     type: Sequelize.INTEGER,
+    //     allowNull: true,
+    // },
     fulfilled: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
