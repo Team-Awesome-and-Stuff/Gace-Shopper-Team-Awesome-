@@ -25,6 +25,11 @@ const User = db.define('user', {
         type: Sequelize.BOOLEAN,
         defaultValue: false,
     },
+    role: {
+        type: Sequelize.ENUM,
+        values: ['admin', 'user', 'guest'],
+        defaultValue: 'user',
+    },
 })
 
 /**

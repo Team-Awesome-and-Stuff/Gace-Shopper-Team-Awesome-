@@ -24,10 +24,11 @@ const Order = db.define('order', {
         allowNull: false,
         defaultValue: false,
     },
-    cart: {
-        type: Sequelize.BOOLEAN,
+    state: {
+        type: Sequelize.ENUM,
+        values: ['cart', 'checkout', 'purchased'],
         allowNull: false,
-        defaultValue: true,
+        defaultValue: 'cart',
     },
 })
 //Class methods
@@ -106,6 +107,5 @@ const Order = db.define('order', {
 //   }
 //   return orderProduct;
 // };
-
 
 module.exports = Order
