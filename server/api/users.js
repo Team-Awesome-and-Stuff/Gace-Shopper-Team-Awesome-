@@ -1,9 +1,10 @@
 const express = require('express')
 const router = express.Router()
 const User = require('../db/models/User')
+const { adminAuth } = require('../middlewares/authorize')
 
 //Get/api/users
-router.get('/', async (req, res, next) => {
+router.get('/', adminAuth, async (req, res, next) => {
     const users = await User.findAll()
     res.json(users)
 })
