@@ -2,16 +2,19 @@ const express = require('express')
 const router = express.Router()
 const Order = require('../db/models/Order')
 
-//Get/api/orders
-
+// Get/api/orders/
+// Gets all orders
 router.get('/', async (req, res, next) => {
     const orders = await Order.findAll()
     res.json(orders)
 })
 
-router.get('/:id', async (req, res, next) => {
-    const order = await Order.findByPk(req.params.id)
-    res.json(order)
+//Get/api/orders/id
+//todo get all orders from a customer id
+router.get('/:userId', async (req, res, next) => {
+    const userId = req.params.userId
+    const orders = await Order.findAll({ where: { userId } })
+    res.json(orders)
 })
 
 router.post('/', async (req, res, next) => {

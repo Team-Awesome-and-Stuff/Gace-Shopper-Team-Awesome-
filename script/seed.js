@@ -54,7 +54,7 @@ async function seed() {
         Order.create({
             productId: 1,
             quantity: 1,
-            total: 10,
+            // total: 10,
             fulfilled: false,
             cart: true,
             userId: 1,
@@ -62,7 +62,7 @@ async function seed() {
         Order.create({
             productId: 2,
             quantity: 2,
-            total: 5,
+            // total: 5,
             fulfilled: false,
             cart: true,
             userId: 3,
