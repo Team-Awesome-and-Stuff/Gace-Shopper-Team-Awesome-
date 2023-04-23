@@ -41,7 +41,7 @@ User.prototype.correctPassword = function (candidatePwd) {
 }
 
 User.prototype.generateToken = function () {
-    return jwt.sign({ id: this.id }, process.env.JWT)
+    return jwt.sign({ id: this.id }, process.env.JWT_SECRET)
 }
 
 /**
@@ -62,6 +62,7 @@ User.authenticate = async function ({ email, password }) {
     }
 
     const token = await user.generateToken()
+
     return token
 }
 
@@ -85,7 +86,7 @@ User.authenticateUserToken = async (req, res, next) => {
 
 User.findByToken = async function (token) {
     try {
-        const { id } = jwt.verify(token, process.env.JWT)
+        const { id } = jwt.verify(token, process.env.JWT_SECRET)
         const user = await User.findByPk(id)
         if (!user) {
             throw new Error('User not found')
