@@ -30,7 +30,7 @@
     "morgan": "^1.10.0",
     "pg": "^8.8.0",
     "prettier": "^2.8.7",
-    "sequelize": "^6.25.3"
+    "sequelize": "^6.31.0"
   },
   "devDependencies": {
     "@babel/core": "^7.19.6",

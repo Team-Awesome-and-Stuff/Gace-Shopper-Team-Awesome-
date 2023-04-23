@@ -1,6 +1,7 @@
 'use strict'
 const User = require('../server/db/models/User')
 const Product = require('../server/db/models/Product')
+const Order = require('../server/db/models/Order')
 const db = require('../server/db/db')
 
 /**
@@ -48,26 +49,34 @@ async function seed() {
         }),
     ])
 
-    //Creating Orders
-    // const Orders = await Promise.all([
-    //     Order.create({
-    //         fulfilled: false,
-    //         userId: 1,
-    //     }),
-    //     Order.create({
-    //         fulfilled: false,
-    //         userId: 2,
-    //     }),
-    // ])
+    // Creating Orders
+    const Orders = await Promise.all([
+        Order.create({
+            productId: 1,
+            quantity: 1,
+            total: 10,
+            fulfilled: false,
+            cart: true,
+            userId: 1,
+        }),
+        Order.create({
+            productId: 2,
+            quantity: 2,
+            total: 5,
+            fulfilled: false,
+            cart: true,
+            userId: 3,
+        }),
+    ])
 
     console.log(`seeded ${Users.length} users`)
     console.log(`seeded ${Products.length} products`)
-    // console.log(`seeded ${Orders.length} orders`)
+    console.log(`seeded ${Orders.length} orders`)
     console.log(`seeded successfully`)
     return {
         users: Users,
-        // products: Products,
-        // orders: Orders,
+        products: Products,
+        orders: Orders,
     }
 }
 

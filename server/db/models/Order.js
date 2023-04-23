@@ -1,11 +1,23 @@
-const Sequelize = require("sequelize")
-const db = require("../db")
+const Sequelize = require('sequelize')
+const db = require('../db')
 
-const Order = db.define("order", {
+const Order = db.define('order', {
     id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
+    },
+    productId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+    },
+    quantity: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+    },
+    total: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
     },
     fulfilled: {
         type: Sequelize.BOOLEAN,
@@ -13,11 +25,11 @@ const Order = db.define("order", {
         defaultValue: false,
     },
     cart: {
-      type: Sequelize.BOOLEAN,
-      allowNull: false,
-      defaultValue: true,
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: true,
     },
-});
+})
 //Class methods
 // Order.createOrder = async function (userId, products) {
 //   const order = await Order.create({
@@ -95,7 +107,5 @@ const Order = db.define("order", {
 //   return orderProduct;
 // };
 
-
-Order.prototype.func = () =>{};
 
 module.exports = Order
