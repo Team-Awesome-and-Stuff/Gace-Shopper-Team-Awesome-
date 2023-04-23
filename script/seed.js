@@ -1,5 +1,6 @@
 'use strict'
 const User = require('../server/db/models/User')
+const Product = require('../server/db/models/Product')
 const db = require('../server/db/db')
 
 /**
@@ -30,22 +31,22 @@ async function seed() {
     ])
 
     // Creating Products
-    // const Products = await Promise.all([
-    //     Product.create({
-    //         name: 'crank chop',
-    //         price: 10.99,
-    //         quantity: 20,
-    //         imageUrl:
-    //             'https://jeffersonvalleymall.com/images/default-source/store-logos/store-logos/as-seen-on-tv.tmb-t-400x400.png?sfvrsn=f8ff2078_7',
-    //     }),
-    //     Product.create({
-    //         name: 'flex shot',
-    //         price: 7.99,
-    //         quantity: 50,
-    //         imageUrl:
-    //             'https://jeffersonvalleymall.com/images/default-source/store-logos/store-logos/as-seen-on-tv.tmb-t-400x400.png?sfvrsn=f8ff2078_7',
-    //     }),
-    // ])
+    const Products = await Promise.all([
+        Product.create({
+            name: 'crank chop',
+            price: 10.99,
+            description: 'I love to chop my crank',
+            imageUrl:
+                'https://jeffersonvalleymall.com/images/default-source/store-logos/store-logos/as-seen-on-tv.tmb-t-400x400.png?sfvrsn=f8ff2078_7',
+        }),
+        Product.create({
+            name: 'flex shot',
+            price: 7.99,
+            description: 'I love to flex my shot',
+            imageUrl:
+                'https://jeffersonvalleymall.com/images/default-source/store-logos/store-logos/as-seen-on-tv.tmb-t-400x400.png?sfvrsn=f8ff2078_7',
+        }),
+    ])
 
     //Creating Orders
     // const Orders = await Promise.all([
@@ -60,7 +61,7 @@ async function seed() {
     // ])
 
     console.log(`seeded ${Users.length} users`)
-    // console.log(`seeded ${Products.length} products`)
+    console.log(`seeded ${Products.length} products`)
     // console.log(`seeded ${Orders.length} orders`)
     console.log(`seeded successfully`)
     return {
