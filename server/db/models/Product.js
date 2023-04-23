@@ -24,6 +24,7 @@ const Product = db.define("product", {
   },
 });
 
+
 //instance methods
 
 //example of how to update product in route

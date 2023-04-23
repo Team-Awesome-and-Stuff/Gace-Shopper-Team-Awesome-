@@ -10,6 +10,7 @@ app.use(morgan('tiny'))
 
 // body parsing middleware
 app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 
 // product, auth and api routes
 

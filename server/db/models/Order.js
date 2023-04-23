@@ -1,7 +1,7 @@
 const Sequelize = require("sequelize")
 const db = require("../db")
 
-const Order = db.define('order', {
+const Order = db.define("order", {
     id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -94,5 +94,8 @@ const Order = db.define('order', {
 //   }
 //   return orderProduct;
 // };
+
+
+Order.prototype.func = () =>{};
 
 module.exports = Order
