@@ -1,10 +1,11 @@
 const router = require('express').Router()
 const User = require('../db/models/User')
+// const cookie = require('cookie-parser')
 
 //Post/auth/login
 router.post('/login', async (req, res, next) => {
     try {
-        const token = User.authenticate(req.body)
+        const token = await User.authenticate(req.body)
         res.cookie('auth', token)
         res.send(token)
     } catch (err) {
@@ -20,7 +21,9 @@ router.post('/signup', async (req, res, next) => {
             email: email,
             password: password,
         })
-        res.send({ token: await user.generateToken() })
+        const token = await user.generateToken()
+        res.cookie('auth', token)
+        res.send(token)
     } catch (err) {
         if (err.name === 'SequelizeUniqueConstraintError') {
             res.status(401).send('User already exists')

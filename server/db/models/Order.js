@@ -16,14 +16,6 @@ const Order = db.define('order', {
        allowNull: false,
        defaultValue: 1,
     },
-    quantity: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-    },
-    // total: {
-    //     type: Sequelize.INTEGER,
-    //     allowNull: true,
-    // },
     fulfilled: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
