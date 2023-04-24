@@ -1,7 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import Products from "./Products";
-
+import SingleProduct from "./SingleProduct";
+import SingleProductPreview from "./SingleProductPreview";
 /**
  * COMPONENT
  */

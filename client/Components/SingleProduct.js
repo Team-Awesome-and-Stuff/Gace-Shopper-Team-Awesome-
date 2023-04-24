@@ -1,31 +1,51 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
-// import { useDispatch, useSelector } from "react-redux";
-// import { useParams } from "react-router-dom";
-// import { fetchSingleProduct } from "../app/SingleProductSlice";
-
-function SingleProduct(props) {
-  console.log(props);
-  const { name, imageUrl, price } = props;
-
+function Product() {
   // const { id } = useParams();
   // const dispatch = useDispatch();
-  // const product = useSelector((state) => state.SingleProduct);
+  // const product = useSelector((state) => state.Product);
 
   // useEffect(
   //   () => {
-  //     dispatch(fetchSingleProduct(id));
+  //     dispatch(fetchProduct(id));
   //   },
-  //   [],
+  //   [dispatch],
+  //   id
   // );
 
+  // const productToCart = (productId) => {
+  //   dispatch(addProductToCart({ userId, productId }));
+  // };
+
+  const Product = {
+    name: "crank chop",
+    price: 10.99,
+    quantity: 20,
+    imageUrl:
+      "https://jeffersonvalleymall.com/images/default-source/store-logos/store-logos/as-seen-on-tv.tmb-t-400x400.png?sfvrsn=f8ff2078_7",
+    description: "hello",
+  };
+
   return (
-    <div>
-      <h1>{name}</h1>
-      <img src={imageUrl} />
-      <h3>Price: ${price}</h3>
+    <div id=" Product" className="column">
+      <div id=" Product Info" className="row">
+        <div className="First Column"></div>
+        <h1>{Product.name}</h1>
+        <img src={Product.imageUrl} />
+        <h3>{Product.price}</h3>
+        <h4>{Product.description}</h4>
+        <button
+          onClick={() => {
+            addProductToCart(product.Id);
+          }}
+        >
+          Add product to cart
+        </button>
+      </div>
     </div>
   );
 }
 
-export default SingleProduct;
+export default Product;

@@ -5,6 +5,7 @@ import AuthForm from "../auth/AuthForm";
 import Home from "../Components/Home";
 import { me } from "./store";
 import Product from "../Components/Products";
+import SingleProduct from "../Components/SingleProduct";
 
 /**
  * COMPONENT
@@ -40,6 +41,7 @@ const AppRoutes = () => {
             path="/signup"
             element={<AuthForm name="signup" displayName="Sign Up" />}
           />
+          <Route path="/products/:id" element={<SingleProduct />} />
         </Routes>
       )}
     </div>
