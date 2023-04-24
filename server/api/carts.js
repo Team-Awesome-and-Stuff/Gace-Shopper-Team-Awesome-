@@ -1,59 +1,56 @@
 const express = require('express')
 const router = express.Router()
-const Order = require('../db/models/Order')
+const Cart = require('../db/models/Cart')
 const { userAuth, adminAuth } = require('../middlewares/authorize')
 
-// Get/api/orders/
-// Gets all orders
-//!tested good
+// Get/api/carts/
+// Gets all carts
+//!tested
 router.get('/', adminAuth, async (req, res, next) => {
     let user = req.user
     if (!user) return res.sendStatus(401)
-    const order = await Order.findAll()
-    res.json(order)
+    const cart = await Cart.findAll()
+    res.json(cart)
 })
 
-//Get/api/orders/id
-//!tested good
-//todo get all orders from a customer id
+//Get/api/cart/id
+//!tested good!
 router.get('/:userId', userAuth, async (req, res, next) => {
     let user = req.user
-    const orders = await Order.findByPk(user.id)
-    res.json(orders)
+    const carts = await Cart.findByPk(user.id)
+    res.json(carts)
 })
 
-//Post/api/orders/
+//Post/api/cart/
 //User only
 //!test good!
 router.post('/', userAuth, async (req, res, next) => {
     let user = req.user
     if (!user) return res.sendStatus(401)
     // console.log('line 28 reaq.body>>>>', req.body)
-    const order = await Order.create(req.body)
-    res.json(order)
+    const cart = await Cart.create(req.body)
+    res.json(cart)
 })
 
-//Put/api/orders/id
-//update order
+//Put/api/cart/id
+//update cart
 //!test good!
 router.put('/:id', userAuth, async (req, res, next) => {
-    const order = await Order.findByPk(req.params.id)
-    const orderUpdate = await order.update(req.body)
-    res.json(orderUpdate)
+    const cart = await Cart.findByPk(req.params.id)
+    const cartUpdate = await cart.update(req.body)
+    res.json(cartUpdate)
 })
 
 //Delete/api/orders/id
-//delete order
+//delete cart
 //!test good!
 router.delete('/:id', async (req, res, next) => {
-    const order = await Order.destroy({
+    const cart = await Cart.destroy({
         where: {
             id: req.params.id,
         },
     })
-    res.send({ message: `${order} has been destroyed` })
+    res.send({ message: `${cart} has been destroyed` })
 })
-
-//todo put to change order state to checkout
 
 module.exports = router
