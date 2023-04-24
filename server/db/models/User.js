@@ -47,7 +47,7 @@ User.prototype.generateToken = function () {
 /**
  * classMethods
  */
-
+// used in the login auth route 
 User.authenticate = async function ({ email, password }) {
     const user = await this.findOne({ where: { email } })
 
@@ -66,28 +66,29 @@ User.authenticate = async function ({ email, password }) {
     return token
 }
 
-User.authenticateUserToken = async (req, res, next) => {
-    try {
-        const authHeader = req.headers.authorization
-        if (!authHeader) {
-            throw new Error('Not authorized')
-        }
-        const token = authHeader.split(' ')[1]
-        const user = await User.findByToken(token)
-        if (!user) {
-            throw new Error('User not found')
-        }
-        req.user = user
-        next()
-    } catch (err) {
-        next(err)
-    }
-}
+// User.authenticateUserToken = async (req, res, next) => {
+//     try {
+//         const authHeader = req.headers.authorization
+//         if (!authHeader) {
+//             throw new Error('Not authorized')
+//         }
+//         const token = authHeader.split(' ')[1]
+//         const user = await User.findByToken(token)
+//         if (!user) {
+//             throw new Error('User not found')
+//         }
+//         req.user = user
+//         next()
+//     } catch (err) {
+//         next(err)
+//     }
+// }
 
 User.findByToken = async function (token) {
     try {
         const { id } = jwt.verify(token, process.env.JWT_SECRET)
-        const user = await User.findByPk(id)
+        const stringyId = id.toString()
+        const user = await User.findByPk(stringyId)
         if (!user) {
             throw new Error('User not found')
         }
