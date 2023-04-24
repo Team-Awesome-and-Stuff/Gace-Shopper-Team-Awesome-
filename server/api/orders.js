@@ -25,7 +25,7 @@ router.get('/:userId', userAuth, async (req, res, next) => {
 
 //Post/api/orders/
 //User only
-//!tested good
+//!test
 router.post('/', userAuth, async (req, res, next) => {
     let user = req.user
     if (!user) return res.sendStatus(401)
@@ -36,7 +36,7 @@ router.post('/', userAuth, async (req, res, next) => {
 
 //Put/api/orders/id
 //update order
-//!
+//!test
 router.put('/:id', userAuth, async (req, res, next) => {
     const order = await Order.findByPk(req.params.id)
     const orderUpdate = await order.update(req.body)
