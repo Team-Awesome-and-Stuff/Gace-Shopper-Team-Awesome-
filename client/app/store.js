@@ -19,4 +19,3 @@ export default store
 export * from '../auth/authSlice'
 // const store2 = configureStore({
 //   home: homeReducer,
-// });

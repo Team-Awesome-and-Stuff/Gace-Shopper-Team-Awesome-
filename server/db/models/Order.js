@@ -11,19 +11,10 @@ const Order = db.define('order', {
         type: Sequelize.INTEGER,
         allowNull: false,
     },
-    productId: {
-       type: Sequelize.INTEGER,
-       allowNull: false,
-       defaultValue: 1,
-    },
-    quantity: {
+    cartId: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
     },
-    // total: {
-    //     type: Sequelize.INTEGER,
-    //     allowNull: true,
-    // },
     fulfilled: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
