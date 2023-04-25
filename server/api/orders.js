@@ -20,29 +20,43 @@ router.get('/:userId', userAuth, async (req, res, next) => {
     try {
         let user = req.user
         const order = await Order.findOne({ where: { userId: user.id } })
-        const cart = await Cart.findOne({ where: { orderId: order.id } })
+        const cart = await Cart.findAll({ where: { orderId: order.id } })
         res.json(cart)
     } catch (error) {
         next(error)
     }
 })
+//this route will increase a products quantity
 //Post/api/orders/
+//route works stop touching
 router.post('/:userId', userAuth, async (req, res, next) => {
     try {
         let user = req.user
+        let { productId, quantity } = req.body
         if (!user) return res.sendStatus(401)
         const order = await Order.findOne({ where: { userId: user.id } })
         const cart = await Cart.findOne({ where: { orderId: order.id } })
-        console.log('line 35>>>>>>', cart)
-        console.log(req.body)
-        const newCart = await cart.create(req.body)
-        res.json(newCart)
+        const existingCartItem = await Cart.findOne({
+            where: { orderId: order.id, productId: productId },
+        })
+        if (existingCartItem) {
+            existingCartItem.quantity += 1
+            await existingCartItem.save()
+            res.json(existingCartItem)
+        } else {
+            const newCart = await Cart.create({
+                productId: productId,
+                quantity: quantity,
+                orderId: cart.orderId,
+            })
+            res.json(newCart)
+        }
     } catch (error) {
         next(error)
     }
 })
 //Put/api/orders/id
-router.put('/:id', userAuth, async (req, res, next) => {
+router.put('/:userId/cart/:productId', userAuth, async (req, res, next) => {
     try {
         let user = req.user
         const order = await Order.findOne({ where: { userId: user.id } })
@@ -53,15 +67,31 @@ router.put('/:id', userAuth, async (req, res, next) => {
         next(error)
     }
 })
+//this route will delete a products quantity
 //Delete/api/orders/id
-router.delete('/:id', userAuth, async (req, res, next) => {
+//Works just fine, DO NOT TOUCH!!!
+router.delete('/:userId/', userAuth, async (req, res, next) => {
     try {
-        const order = await Order.destroy({
-            where: {
-                id: req.params.id,
-            },
+        let user = req.user
+        let { productId } = req.body
+        const order = await Order.findOne({ where: { userId: user.id } })
+        const cart = await Cart.findOne({ where: { orderId: order.id } })
+        console.log('line 74>>>>', cart)
+        const existingCartItem = await Cart.findOne({
+            where: { orderId: order.id, productId: productId },
         })
-        res.send({ message: `${order} has been destroyed` })
+        if (!existingCartItem) {
+            return res.sendStatus(404).json('Item does not exist')
+        }
+        console.log('line 80>>>>', existingCartItem)
+        if (existingCartItem.quantity === 1) {
+            await existingCartItem.destroy()
+            res.send({ message:  `has been destroyed` })
+        } else {
+            existingCartItem.quantity -= 1
+            await existingCartItem.save()
+            res.json(existingCartItem)
+        }
     } catch (error) {
         next(error)
     }
