@@ -6,10 +6,10 @@ const { userAuth, adminAuth } = require('../middlewares/authorize')
 // Get/api/carts/
 router.get('/', adminAuth, async (req, res, next) => {
     try {
-    let user = req.user
-    if (!user) return res.sendStatus(401)
-    const cart = await Cart.findAll()
-    res.json(cart)
+        let user = req.user
+        if (!user) return res.sendStatus(401)
+        const cart = await Cart.findAll()
+        res.json(cart)
     } catch (err) {
         next(err)
     }
@@ -17,9 +17,9 @@ router.get('/', adminAuth, async (req, res, next) => {
 //Get/api/cart/id
 router.get('/:userId', userAuth, async (req, res, next) => {
     try {
-    let user = req.user
-    const carts = await Cart.findByPk(user.id)
-    res.json(carts)
+        let user = req.user
+        const carts = await Cart.findByPk(user.id)
+        res.json(carts)
     } catch (err) {
         next(err)
     }
@@ -27,23 +27,25 @@ router.get('/:userId', userAuth, async (req, res, next) => {
 //Post/api/cart/
 router.post('/', userAuth, async (req, res, next) => {
     try {
-    let user = req.user
-    if (!user) return res.sendStatus(401)
-    // console.log('line 28 reaq.body>>>>', req.body)
-    const cart = await Cart.create(req.body)
-    res.json(cart)
+        let user = req.user
+        if (!user) return res.sendStatus(401)
+        // console.log('line 28 reaq.body>>>>', req.body)
+        const cart = await Cart.create(req.body)
+        res.json(cart)
     } catch (err) {
         next(err)
     }
 })
+// update Cart
 //Put/api/cart/id
 router.put('/:userid', userAuth, async (req, res, next) => {
+    console.log(req.body)
     try {
-    let user = req.user
-    if (!user) return res
-    const cart = await Cart.findByPk(req.params.id)
-    const cartUpdate = await cart.update(req.body)
-    res.json(cartUpdate)
+        let user = req.user
+        if (!user) return res
+        const cart = await Cart.findByPk(req.params.id)
+        const cartUpdate = await cart.update(req.body)
+        res.json(cartUpdate)
     } catch (err) {
         next(err)
     }
@@ -52,12 +54,12 @@ router.put('/:userid', userAuth, async (req, res, next) => {
 //Delete/api/orders/id
 router.delete('/:userid', async (req, res, next) => {
     try {
-    const cart = await Cart.destroy({
-        where: {
-            id: req.params.id,
-        },
-    })
-    res.send({ message: `${cart} has been destroyed` })
+        const cart = await Cart.destroy({
+            where: {
+                id: req.params.id,
+            },
+        })
+        res.send({ message: `${cart} has been destroyed` })
     } catch (err) {
         next(err)
     }
