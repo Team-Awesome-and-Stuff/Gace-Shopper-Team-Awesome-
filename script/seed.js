@@ -52,11 +52,11 @@ async function seed() {
                 'https://cdn.asotvinc.com/pimg/DF4AF0B7C981477EA1B2C2014CC4A8B1.jpg',
         }),
         Product.create({
-            name: 'shake weight',
+            name: 'Huggle Hoodie',
             price: 12.99,
-            description: 'I love to shake my weight',
+            description: 'I love to huggle my hoodie',
             imageUrl:
-            'https://secure.cyberbrands.com/as-seen-on-tv/im/shakeweight_med.jpg',
+            'https://cdn.asotvinc.com/pimg/B80D4D5DFFA3470C91EDE9A939812050.jpg',
         }),
         Product.create({
             name: 'pillow pad',
