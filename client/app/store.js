@@ -9,7 +9,7 @@ const store = configureStore({
         auth: authReducer,
         products: productsReducer,
         singleProduct: singleProductReducer,
-        //  product: productSlice,
+        // product: productSlice,
     },
 
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),

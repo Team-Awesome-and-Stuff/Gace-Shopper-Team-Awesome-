@@ -15,26 +15,37 @@ const Navbar = () => {
     return (
         <div>
             <h1>FS-App-Template</h1>
-            <nav>
+            <nav className="navbar">
                 {isLoggedIn ? (
-                    <div>
+                    <div className="navbar-line">
                         {/* The navbar will show these links after you log in */}
-                        <Link to="/home">Home</Link>
+                        <Link className="home" to="/home">
+                            Home
+                        </Link>
+
                         <Link to="/cart">Cart</Link>
                         <button type="button" onClick={logoutAndRedirectHome}>
                             Logout
                         </button>
                     </div>
                 ) : (
-                    <div>
+                    <div class="navbar-line">
                         {/* The navbar will show these links before you log in */}
-                        <Link to="/login">Login</Link>
-                        <Link to="/signup">Sign Up</Link>
-                        <Link to="/cart">Cart</Link>
+                        <Link className="home" to="/home">
+                            Products
+                        </Link>
+                        <Link href="styles.css" to="/cart">
+                            Cart
+                        </Link>
+                        <Link href="styles.css" to="/login">
+                            Login
+                        </Link>
+                        <Link href="styles.css" to="/signup">
+                            Sign Up
+                        </Link>
                     </div>
                 )}
             </nav>
-            <hr />
         </div>
     )
 }

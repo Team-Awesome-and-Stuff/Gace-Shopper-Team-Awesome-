@@ -13,19 +13,23 @@ const Products = () => {
 
     return (
         <div className="product-container">
-            {products ? (
-                products.map((product) => (
-                    <div className="products" key={product.id}>
-                        <NavLink to={`/products/${product.id}`}>
-                            <p>{product.name}</p>
-                            <img src={product.imageUrl}></img>
-                            <p>{product.price}</p>
-                        </NavLink>
-                    </div>
-                ))
-            ) : (
-                <h1>Loading...</h1>
-            )}
+            <div class="row">
+                {products ? (
+                    products.map((product) => (
+                        <div class="column">
+                            <div className="products" key={product.id}>
+                                <NavLink to={`/products/${product.id}`}>
+                                    <img src={product.imageUrl}></img>
+                                    <p class="productNames">{product.name}</p>
+                                    <p class="price">${product.price}</p>
+                                </NavLink>
+                            </div>
+                        </div>
+                    ))
+                ) : (
+                    <h1>Loading...</h1>
+                )}
+            </div>
         </div>
     )
 }
