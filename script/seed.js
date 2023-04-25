@@ -1,9 +1,12 @@
 'use strict'
-const User = require('../server/db/models/User')
-const Product = require('../server/db/models/Product')
-const Cart = require('../server/db/models/Cart')
-const Order = require('../server/db/models/Order')
-const db = require('../server/db/db')
+// const User = require('../server/db/models/User')
+// const Product = require('../server/db/models/Product')
+// const Cart = require('../server/db/models/Cart')
+// const Order = require('../server/db/models/Order')
+// const db = require('../server/db/db')
+
+const { User, Product, Cart, Order, db } = require('../server/db/index')
+
 
 /**
  * seed - this function clears the database, updates tables to
@@ -50,6 +53,19 @@ async function seed() {
         }),
     ])
 
+    const Orders = await Promise.all([
+        Order.create({
+            userId: 1,
+            orderId: 1,
+            cartId: 1,
+        }),
+        Order.create({
+            userId: 2,
+            orderId: 2,
+            cartId: 2,
+        }),
+    ])
+
     // Creating Orders
     const Carts = await Promise.all([
         Cart.create({
@@ -61,18 +77,6 @@ async function seed() {
             productId: 2,
             quantity: 2,
             orderId: 2,
-        }),
-    ])
-    const Orders = await Promise.all([
-        Order.create({
-            userId: 1,
-            orderId: 1,
-            cartId: 1,
-        }),
-        Order.create({
-            userId: 2,
-            orderId: 2,
-            cartId: 2,
         }),
     ])
 

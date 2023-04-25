@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const Order = require('../db/models/Order')
+const Cart = require('../db/models/Cart')
 const { userAuth, adminAuth } = require('../middlewares/authorize')
 
 // Get/api/orders/
@@ -18,20 +19,24 @@ router.get('/', adminAuth, async (req, res, next) => {
 router.get('/:userId', userAuth, async (req, res, next) => {
     try {
         let user = req.user
-        const orders = await Order.findByPk(user.id)
-        res.json(orders)
+        const order = await Order.findOne({ where: { userId: user.id } })
+        const cart = await Cart.findOne({ where: { orderId: order.id } })
+        res.json(cart)
     } catch (error) {
         next(error)
     }
 })
 //Post/api/orders/
-router.post('/', userAuth, async (req, res, next) => {
+router.post('/:userId', userAuth, async (req, res, next) => {
     try {
         let user = req.user
         if (!user) return res.sendStatus(401)
-        // console.log('line 28 reaq.body>>>>', req.body)
-        const order = await Order.create(req.body)
-        res.json(order)
+        const order = await Order.findOne({ where: { userId: user.id } })
+        const cart = await Cart.findOne({ where: { orderId: order.id } })
+        console.log('line 35>>>>>>', cart)
+        console.log(req.body)
+        const newCart = await cart.create(req.body)
+        res.json(newCart)
     } catch (error) {
         next(error)
     }
@@ -39,9 +44,11 @@ router.post('/', userAuth, async (req, res, next) => {
 //Put/api/orders/id
 router.put('/:id', userAuth, async (req, res, next) => {
     try {
-        const order = await Order.findByPk(req.params.id)
-        const orderUpdate = await order.update(req.body)
-        res.json(orderUpdate)
+        let user = req.user
+        const order = await Order.findOne({ where: { userId: user.id } })
+        const cart = await Cart.findOne({ where: { orderId: order.id } })
+        const cartUpdate = await cart.update(req.body)
+        res.json(cartUpdate)
     } catch (error) {
         next(error)
     }
