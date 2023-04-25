@@ -1,9 +1,12 @@
 'use strict'
-const User = require('../server/db/models/User')
-const Product = require('../server/db/models/Product')
-const Cart = require('../server/db/models/Cart')
-const Order = require('../server/db/models/Order')
-const db = require('../server/db/db')
+// const User = require('../server/db/models/User')
+// const Product = require('../server/db/models/Product')
+// const Cart = require('../server/db/models/Cart')
+// const Order = require('../server/db/models/Order')
+// const db = require('../server/db/db')
+
+const { User, Product, Cart, Order, db } = require('../server/db/index')
+
 
 /**
  * seed - this function clears the database, updates tables to
@@ -39,14 +42,42 @@ async function seed() {
             price: 10.99,
             description: 'I love to chop my crank',
             imageUrl:
-                'https://jeffersonvalleymall.com/images/default-source/store-logos/store-logos/as-seen-on-tv.tmb-t-400x400.png?sfvrsn=f8ff2078_7',
+                'https://cdn.asotvinc.com/pimg/1C4B4EACFD5144CC8B9BC03E542A1867.jpg',
         }),
         Product.create({
             name: 'flex shot',
             price: 7.99,
             description: 'I love to flex my shot',
             imageUrl:
-                'https://jeffersonvalleymall.com/images/default-source/store-logos/store-logos/as-seen-on-tv.tmb-t-400x400.png?sfvrsn=f8ff2078_7',
+                'https://cdn.asotvinc.com/pimg/DF4AF0B7C981477EA1B2C2014CC4A8B1.jpg',
+        }),
+        Product.create({
+            name: 'shake weight',
+            price: 12.99,
+            description: 'I love to shake my weight',
+            imageUrl:
+            'https://secure.cyberbrands.com/as-seen-on-tv/im/shakeweight_med.jpg',
+        }),
+        Product.create({
+            name: 'pillow pad',
+            price: 19.95,
+            description: 'I love to pad my pillow',
+            imageUrl: 'https://cdn.asotvinc.com/pimg/1A0E2BDF29A24A0390A909C1A43E1831.jpg',
+        }),
+
+
+    ])
+
+    const Orders = await Promise.all([
+        Order.create({
+            userId: 1,
+            orderId: 1,
+            cartId: 1,
+        }),
+        Order.create({
+            userId: 2,
+            orderId: 2,
+            cartId: 2,
         }),
     ])
 
@@ -61,18 +92,6 @@ async function seed() {
             productId: 2,
             quantity: 2,
             orderId: 2,
-        }),
-    ])
-    const Orders = await Promise.all([
-        Order.create({
-            userId: 1,
-            orderId: 1,
-            cartId: 1,
-        }),
-        Order.create({
-            userId: 2,
-            orderId: 2,
-            cartId: 2,
         }),
     ])
 
