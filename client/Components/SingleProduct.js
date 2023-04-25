@@ -21,20 +21,25 @@ function Product() {
     }
 
     return (
-        <div id=" Product" className="column">
-            <div id=" Product Info" className="row">
-                <div className="First Column"></div>
-                <h1>{product.name}</h1>
-                <img src={product.imageUrl} />
-                <h3>{product.price}</h3>
-                <h4>{product.description}</h4>
-                <button
-                    onClick={() => {
-                        productToCart(product.Id)
-                    }}
-                >
-                    Add product to cart
-                </button>
+        <div id="Product" className="column">
+            <div id="productInfo" className="row">
+                <div className="row">
+                    <div class="columnSingleProduct">
+                        <h1 class="productName">{product.name}</h1>
+                        <img src={product.imageUrl} />
+                    </div>
+                    <div class="columnSingleProductDesc">
+                        <h3>${product.price}</h3>
+                        <h4>{product.description}</h4>
+                        <button
+                            onClick={() => {
+                                productToCart(product.Id)
+                            }}
+                        >
+                            Add product to cart
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     )

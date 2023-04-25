@@ -1,6 +1,7 @@
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { authenticate } from '../app/store';
+
+import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { authenticate } from '../app/store'
 
 
 /**
@@ -9,39 +10,41 @@ import { authenticate } from '../app/store';
   Props for Sign up: name="signup", displayName="Sign Up"
 **/
 
+
 const AuthForm = ({ email, displayName }) => {
-  const { error } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
+    const { error } = useSelector((state) => state.auth)
+    const dispatch = useDispatch()
 
-  const handleSubmit = (evt) => {
-    evt.preventDefault();
-    const email = evt.target.email.value;
-    const password = evt.target.password.value;
-    dispatch(authenticate({ email, password, method: formName }));
-  };
+    const handleSubmit = (evt) => {
+        evt.preventDefault()
+        const email = evt.target.email.value
+        const password = evt.target.password.value
+        dispatch(authenticate({ email, password, method: formName }))
+    }
 
-  return (
-    <div>
-      <form onSubmit={handleSubmit} email={email}>
+    return (
         <div>
-          <label htmlFor="email">
-            <small>Email</small>
-          </label>
-          <input name="email" type="email" />
+            <form onSubmit={handleSubmit} email={email}>
+                <div>
+                    <label htmlFor="email">
+                        <small>Email</small>
+                    </label>
+                    <input name="email" type="email" />
+                </div>
+                <div>
+                    <label htmlFor="password">
+                        <small>Password</small>
+                    </label>
+                    <input name="password" type="password" />
+                </div>
+                <div>
+                    <button type="submit">{displayName}</button>
+                </div>
+                {error && <div> {error} </div>}
+            </form>
         </div>
-        <div>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input name="password" type="password" />
-        </div>
-        <div>
-          <button type="submit">{displayName}</button>
-        </div>
-        {error && <div> {error} </div>}
-      </form>
-    </div>
-  );
-};
+    )
+}
 
-export default AuthForm;
+export default AuthForm
+
