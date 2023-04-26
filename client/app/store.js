@@ -3,15 +3,15 @@ import logger from 'redux-logger'
 import authReducer from '../auth/authSlice'
 import productsReducer from '../../client/slices/ProductsSlice'
 import singleProductReducer from '../../client/slices/SingleProductSlice'
-import cartSlice from '../slices/cartSlice'
+import cartReducer from '../slices/cartSlice'
 
 const store = configureStore({
     reducer: {
         auth: authReducer,
         products: productsReducer,
         singleProduct: singleProductReducer,
-        cart: cartSlice,
-        // product: productSlice,
+        cart: cartReducer,
+        product: productsReducer,
     },
 
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),

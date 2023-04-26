@@ -6,7 +6,7 @@ const User = require('../db/models/User')
 router.post('/login', async (req, res, next) => {
     try {
         const token = await User.authenticate(req.body)
-        res.cookie('auth', token)
+        res.cookie('auth', token, { httpOnly: true })
         res.send(token)
     } catch (err) {
         next(err)
@@ -23,7 +23,7 @@ router.post('/signup', async (req, res, next) => {
         })
         const token = await user.generateToken()
         res.cookie('auth', token)
-        res.send(token)
+        res.send(token, {httpOnly: true})
     } catch (err) {
         if (err.name === 'SequelizeUniqueConstraintError') {
             res.status(401).send('User already exists')

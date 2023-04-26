@@ -11,7 +11,7 @@ import { authenticate } from '../app/store'
 **/
 
 
-const AuthForm = ({ email, displayName }) => {
+const AuthForm = ({ email, password }) => {
     const { error } = useSelector((state) => state.auth)
     const dispatch = useDispatch()
 

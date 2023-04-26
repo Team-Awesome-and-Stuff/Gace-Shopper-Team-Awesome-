@@ -8,29 +8,24 @@ import axios from 'axios'
   CONSTANT VARIABLES
 */
 
-const TOKEN = 'token'
+// const TOKEN = 'token'
 
 
 
 /*
   THUNKS
 */
-export const me = createAsyncThunk('auth/me', async () => {
+export const Login = createAsyncThunk('auth/login', async ({email, password}) => {
 
-    const token = window.localStorage.getItem(TOKEN)
+    // const token = window.localStorage.getItem(TOKEN)
     try {
-        if (token) {
-            const res = await axios.get('/auth/me', {
-                headers: {
-                    authorization: token,
-                },
-            })
-            return res.data
-        } else {
-            return {}
-        }
+        const res = await axios.post('/auth/login', {
+            email,
+            password,
+        })
+        return res.data
     } catch (err) {
-        if (err.response.data) {
+        if (err.res.data) {
             return thunkAPI.rejectWithValue(err.response.data)
         } else {
             return 'There was an issue with your request.'
