@@ -1,10 +1,4 @@
 'use strict'
-// const User = require('../server/db/models/User')
-// const Product = require('../server/db/models/Product')
-// const Cart = require('../server/db/models/Cart')
-// const Order = require('../server/db/models/Order')
-// const db = require('../server/db/db')
-
 const { User, Product, Cart, Order, db } = require('../server/db/index')
 
 

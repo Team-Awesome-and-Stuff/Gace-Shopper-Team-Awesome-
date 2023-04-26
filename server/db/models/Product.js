@@ -29,14 +29,5 @@ const Product = db.define('product', {
     }
 })
 
-//instance methods
-
-// Product.prototype.updateProduct = async function (updates) {
-//     Object.keys(updates).forEach((prop) => {
-//         this[prop] = updates[prop]
-//     })
-//     await this.save()
-//     return this
-// }
 
 module.exports = Product

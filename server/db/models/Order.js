@@ -28,23 +28,6 @@ const Order = db.define('order', {
         defaultValue: 'cart',
     },
 })
-//Class methods
-Order.createNewOrder = async function (userid) {
-    //userid is user.id from req.user in post route
-    // const newCart = await Cart.create()
-    // console.log('line 34>>>>', newCart)
-    const newOrder = await Order.create({
-        cartId: newCart.id,
-        userId: userid,
-        fulfilled: false,
-        state: 'cart',
-    })
-    console.log('line 41>>>>', newOrder)
-    // const updateNewCart = await Cart.update(
-    //     { orderId: newOrder.id },
-    //     { where: { id: newCart.id } }
-    // )
-    console.log('line 46>>>>', updateNewCart)
-}
+
 
 module.exports = Order
