@@ -1,8 +1,5 @@
-
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
-
-
 
 /*
   CONSTANT VARIABLES
@@ -53,12 +50,10 @@ export const authenticate = createAsyncThunk(
     }
 )
 
-
 /*
   SLICE
 */
 export const authSlice = createSlice({
-
     name: 'auth',
     initialState: {
         me: {},
@@ -84,14 +79,11 @@ export const authSlice = createSlice({
     },
 })
 
-
 /*
   ACTIONS
 */
 
 export const { logout } = authSlice.actions
-
-
 
 /*
   REDUCER

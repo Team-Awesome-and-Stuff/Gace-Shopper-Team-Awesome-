@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchSingleProduct } from '../slices/SingleProductSlice'
+import { addProductToCart } from '../slices/cartSlice'
 
 function Product() {
     const { id } = useParams()

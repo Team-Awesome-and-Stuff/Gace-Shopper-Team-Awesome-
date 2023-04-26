@@ -89,7 +89,7 @@ router.delete('/:userId/', userAuth, async (req, res, next) => {
         console.log('line 80>>>>', existingCartItem)
         if (existingCartItem.quantity === 1) {
             await existingCartItem.destroy()
-            res.send({ message:  `has been destroyed` })
+            res.send({ message: `has been destroyed` })
         } else {
             existingCartItem.quantity -= 1
             await existingCartItem.save()
