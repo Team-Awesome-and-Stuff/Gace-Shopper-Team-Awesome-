@@ -38,8 +38,7 @@ function Cart() {
         <>
             <div>
                 <h1>My Cart</h1>
-                {cartList.length === 0}(<div>Nothing in Cart</div>
-                )(
+                {cartList.length === 0}<div>Nothing in Cart</div>
                 <table>
                     <thead>
                         <tr>
@@ -50,7 +49,7 @@ function Cart() {
                         </tr>
                     </thead>
                 </table>
-                );
+
             </div>
             <div id="itemsInMyCart">
                 {/* mapping over products,making sure my products are exisiting before it renders */}
@@ -96,6 +95,7 @@ function Cart() {
                 </button>
             </Link>
         </>
-    )
-}
+    );
+   }
+
 export default Cart

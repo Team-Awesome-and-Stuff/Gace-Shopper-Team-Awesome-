@@ -13,15 +13,17 @@ const Products = () => {
 
     return (
         <div className="product-container">
-            <div class="row">
+            <div className="row">
                 {products ? (
                     products.map((product) => (
-                        <div class="column">
-                            <div className="products" key={product.id}>
+                        <div className="column" key={product.id}>
+                            <div className="products">
                                 <NavLink to={`/products/${product.id}`}>
                                     <img src={product.imageUrl}></img>
-                                    <p class="productNames">{product.name}</p>
-                                    <p class="price">${product.price}</p>
+                                    <p className="productNames">
+                                        {product.name}
+                                    </p>
+                                    <p className="price">${product.price}</p>
                                 </NavLink>
                             </div>
                         </div>
