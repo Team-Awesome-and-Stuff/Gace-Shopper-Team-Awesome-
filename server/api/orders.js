@@ -16,6 +16,7 @@ router.get('/', adminAuth, async (req, res, next) => {
     }
 })
 //Get/api/orders/id
+//Get all products for the cart/order(makes products show up)
 router.get('/:userId', userAuth, async (req, res, next) => {
     try {
         let user = req.user
@@ -26,7 +27,8 @@ router.get('/:userId', userAuth, async (req, res, next) => {
         next(error)
     }
 })
-//this route will increase a products quantity
+
+//this route will increase a products quantity or creates product
 //Post/api/orders/
 //route works stop touching
 router.post('/:userId', userAuth, async (req, res, next) => {
@@ -55,19 +57,19 @@ router.post('/:userId', userAuth, async (req, res, next) => {
         next(error)
     }
 })
-//Put/api/orders/id
-//!probably don't need
-router.put('/:userId/cart/:productId', userAuth, async (req, res, next) => {
-    try {
-        let user = req.user
-        const order = await Order.findOne({ where: { userId: user.id } })
-        const cart = await Cart.findOne({ where: { orderId: order.id } })
-        const cartUpdate = await cart.update(req.body)
-        res.json(cartUpdate)
-    } catch (error) {
-        next(error)
-    }
-})
+// //Put/api/orders/id
+// //!probably don't need
+// router.put('/:userId/cart/:productId', userAuth, async (req, res, next) => {
+//     try {
+//         let user = req.user
+//         const order = await Order.findOne({ where: { userId: user.id } })
+//         const cart = await Cart.findOne({ where: { orderId: order.id } })
+//         const cartUpdate = await cart.update(req.body)
+//         res.json(cartUpdate)
+//     } catch (error) {
+//         next(error)
+//     }
+// })
 //this route will delete a products quantity
 //Delete/api/orders/id
 //Works just fine, DO NOT TOUCH!!!
