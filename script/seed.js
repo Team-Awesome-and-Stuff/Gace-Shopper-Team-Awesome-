@@ -38,14 +38,14 @@ async function seed() {
     // Creating Products
     const Products = await Promise.all([
         Product.create({
-            name: 'crank chop',
+            name: 'Crank Chop',
             price: 10.99,
             description: 'I love to chop my crank',
             imageUrl:
                 'https://cdn.asotvinc.com/pimg/1C4B4EACFD5144CC8B9BC03E542A1867.jpg',
         }),
         Product.create({
-            name: 'flex shot',
+            name: 'Flex Shot',
             price: 7.99,
             description: 'I love to flex my shot',
             imageUrl:
@@ -59,11 +59,17 @@ async function seed() {
             'https://cdn.asotvinc.com/pimg/B80D4D5DFFA3470C91EDE9A939812050.jpg',
         }),
         Product.create({
-            name: 'pillow pad',
+            name: 'Pillow Pad',
             price: 19.95,
             description: 'I love to pad my pillow',
             imageUrl: 'https://cdn.asotvinc.com/pimg/1A0E2BDF29A24A0390A909C1A43E1831.jpg',
         }),
+        Product.create({
+            name: 'Potato Express',
+            price: 10.96,
+            description: 'I love to express my potato',
+            imageUrl: 'https://cdn.asotvinc.com/pimg/A6BF042204114CC9BD617EE751476201.jpg'
+        })
 
 
     ])
