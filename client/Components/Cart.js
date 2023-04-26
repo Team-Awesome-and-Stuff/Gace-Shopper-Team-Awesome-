@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchProducts } from '../slices/ProductsSlice'
 import { Link } from 'react-router-dom'
@@ -55,8 +54,8 @@ function Cart() {
             </div>
             <div id="itemsInMyCart">
                 {/* mapping over products,making sure my products are exisiting before it renders */}
-                {products && products.length
-                    ? products.map((item) => {
+                {cartList && cartList.length
+                    ? cartList.map((item) => {
                           return (
                               <div key={`items inCart:${item.id}`}>
                                   {/* quantitiy will not go under one,onchange with differ depending on the event target */}
