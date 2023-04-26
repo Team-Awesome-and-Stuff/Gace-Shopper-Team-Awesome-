@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken')
 require('dotenv').config()
 
 const adminAuth = async (req, res, next) => {
-    let token = req.cookies.auth
+    let token = req.headers.authorization
     if (!token) return res.sendStatus(401).send({ error: 'No token provided' })
     let decodedToken = jwt.decode(token, { complete: true })
     if (!decodedToken) return res.sendStatus(401).send({ error: 'Invalid token' })
@@ -16,7 +16,7 @@ const adminAuth = async (req, res, next) => {
 }
 
 const userAuth = async (req, res, next) => {
-    let token = req.cookies.auth
+    let token = req.headers.authorization
     
     if (!token) return res.sendStatus(401).json({ error: 'No token provided' })
     let verified = jwt.verify(token, process.env.JWT_SECRET)
