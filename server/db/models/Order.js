@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
+const Cart = require('./Cart')
 
 const Order = db.define('order', {
     id: {
@@ -13,7 +14,7 @@ const Order = db.define('order', {
     },
     cartId: {
         type: Sequelize.INTEGER,
-        allowNull: true,
+        allowNull: false,
     },
     fulfilled: {
         type: Sequelize.BOOLEAN,
@@ -28,80 +29,25 @@ const Order = db.define('order', {
     },
 })
 //Class methods
-// Order.createOrder = async function (userId, products) {
-//   const order = await Order.create({
-//     userId,
-//     fulfilled: false,
-//   });
-//   await Promise.all(
-//     products.map(async (product) => {
-//       console.log("add product>>>>>>>", product.id, product.quantity);
-//       await order.addProduct(product.id, product.quantity);
-//     })
-//   );
-//   return order;
-// };
+Order.createNewOrder = async function  (userid) { //userid is user.id from req.user in post route
+    // const newCart = await Cart.create()
+    // console.log('line 34>>>>', newCart)
+    const newOrder = await Order.create({
+        cartId: newCart.id,
+        userId: userid,
+        fulfilled: false,
+        state: 'cart',
+    })
+    console.log('line 41>>>>', newOrder)
+    // const updateNewCart = await Cart.update(
+    //     { orderId: newOrder.id },
+    //     { where: { id: newCart.id } }
+    // )
+    console.log('line 46>>>>', updateNewCart)
 
-// Order.getOrderByUser = async function (userId) {
-//     const order = await Order.findOne({
-//         where: {
-//             userId: userId,
-//             fulfilled: false,
-//         },
-//         include: [
-//             {
-//                 model: OrderProduct,
-//                 include: [Product],
-//             },
-//         ],
-//     })
-//     return order
-// }
+}
 
-//Instance methods
-// Order.prototype.updateProductQuantity = async function (productId, quantity) {
-//   console.log('updating product quantity')
-//   const orderProduct = await OrderProduct.findOne({
-//     where: { orderId: this.id, productId },
-//   });
-//   if (orderProduct) {
-//     // Update the quantity of the product
-//     orderProduct.quantity = quantity;
-//     if (quantity === 0) {
-//       // Remove the product from the order if the quantity is set to 0
-//       await orderProduct.destroy();
-//     } else {
-//       // Otherwise, save the updated quantity
-//       await orderProduct.save();
-//     }
-//   } else {
-//     // Throw an error if the product is not in the cart
-//    return null;
-//   }
-// };
 
-// Order.prototype.addProduct = async function (productId, quantity = 1) {
-//  console.log('line 76', this.id)
-//  let orderId = this.id;
-//   const existingProduct = await OrderProduct.findOne({
-//     where: { orderId, productId },
-//   })
-//   console.log('line 80', existingProduct)
-//   let orderProduct;
-//   if (existingProduct) {
-//     orderProduct = existingProduct;
-//     orderProduct.quantity += quantity;
-//     await orderProduct.save();
-//   } else {
-//     const product = await Product.findByPk(productId);
-//     orderProduct = await OrderProduct.create({
-//       productId,
-//       quantity,
-//       orderId: this.id,
-//     });
-//     await this.addProduct(product, { through: { quantity: quantity } });
-//   }
-//   return orderProduct;
-// };
+
 
 module.exports = Order

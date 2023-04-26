@@ -9,11 +9,11 @@ const Cart = db.define('cart', {
     },
     orderId: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
     },
     productId: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
     },
     quantity: {
         type: Sequelize.INTEGER,
