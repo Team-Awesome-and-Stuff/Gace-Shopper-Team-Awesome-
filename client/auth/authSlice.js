@@ -1,92 +1,66 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-/*
-  CONSTANT VARIABLES
-*/
-
-// const TOKEN = 'token'
-
-
-
-/*
-  THUNKS
-*/
-export const Login = createAsyncThunk('auth/login', async ({email, password}) => {
-
-    // const token = window.localStorage.getItem(TOKEN)
-    try {
-        const res = await axios.post('/auth/login', {
-            email,
-            password,
-        })
-        return res.data
-    } catch (err) {
-        if (err.res.data) {
-            return thunkAPI.rejectWithValue(err.response.data)
-        } else {
-            return 'There was an issue with your request.'
-        }
-    }
-})
-
-export const authenticate = createAsyncThunk(
-    'auth/authenticate',
-    async ({ username, password, method }, thunkAPI) => {
+// Async Thunks
+export const login = createAsyncThunk(
+    'auth/login',
+    async ({ email, password }) => {
         try {
-            const res = await axios.post(`/auth/${method}`, {
-                username,
+            const response = await axios.post('/api/auth/login', {
+                email,
                 password,
             })
-            window.localStorage.setItem(TOKEN, res.data.token)
-            thunkAPI.dispatch(me())
-        } catch (err) {
-            if (err.response.data) {
-                return thunkAPI.rejectWithValue(err.response.data)
-            } else {
-                return 'There was an issue with your request.'
-            }
+            const token = response.data.token
+            // set the cookie received from the backend
+            document.cookie = `auth=${token}; Secure; HttpOnly; SameSite=Strict;`
+            const user = response.data.user
+            return { user, token }
+        } catch (error) {
+            throw new Error(error.response.data.message)
         }
     }
 )
 
-/*
-  SLICE
-*/
-export const authSlice = createSlice({
+export const signup = createAsyncThunk(
+  'auth/signup',
+  async ({ email, password }) => {
+    const response = await signUpUser(email, password)
+    if (response?.data?.token) {
+      // set the cookie received from the backend
+      document.cookie = `auth=${response.data.token}; Secure; HttpOnly; SameSite=Strict;`
+    }
+    return response?.data?.user ?? null
+  }
+)
+
+
+// Slice
+const authSlice = createSlice({
     name: 'auth',
     initialState: {
-        me: {},
+        user: null,
+        isAuthenticated: false,
         error: null,
     },
-    reducers: {
-        logout(state, action) {
-            window.localStorage.removeItem(TOKEN)
-            state.me = {}
-            state.error = null
-        },
-    },
     extraReducers: (builder) => {
-        builder.addCase(me.fulfilled, (state, action) => {
-            state.me = action.payload
+       builder
+        .addCase(login.fulfilled, (state, action) => {           
+            state.isAuthenticated = true
+            state.user = action.payload.user
         })
-        builder.addCase(me.rejected, (state, action) => {
-            state.error = action.error
+        .addCase(login.rejected (state, action) => {          
+            state.error = action.error.message
+        })      
+        .addCase(signUp.fulfilled (state, action) => {
+            state.isAuthenticated = true
+            state.user = action.payload.user
         })
-        builder.addCase(authenticate.rejected, (state, action) => {
-            state.error = action.payload
+        .addCase(signUpUserAsync.rejected (state, action) => {
+            state.error = action.error.message
         })
     },
 })
 
-/*
-  ACTIONS
-*/
 
-export const { logout } = authSlice.actions
-
-/*
-  REDUCER
-*/
-
+// Reducer
 export default authSlice.reducer

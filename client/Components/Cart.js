@@ -9,6 +9,7 @@ function Cart() {
     const dispatch = useDispatch()
     const cartList = useSelector((state) => state.cart)
     const userId = useSelector((state) => state.auth.me.id)
+    console.log('line 12 cartlist>>>>', cartList)
 
     useEffect(() => {
         {

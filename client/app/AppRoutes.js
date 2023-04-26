@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Route, Routes } from 'react-router-dom'
 import AuthForm from '../auth/AuthForm'
 import Home from '../Components/Home'
-import { me } from './store'
+import { Login } from './store'
 import SingleProduct from '../Components/SingleProduct'
 import Checkout from '../Components/Checkout'
 import Cart from '../Components/Cart'
@@ -13,11 +13,11 @@ import Cart from '../Components/Cart'
  */
 
 const AppRoutes = () => {
-    const isLoggedIn = useSelector((state) => !!state.auth.me.id)
+    const isLoggedIn = useSelector((state) => !!state.auth.Login.id)
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(me())
+        dispatch(Login())
     }, [])
 
     return (
