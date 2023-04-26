@@ -13,6 +13,7 @@ const TOKEN = 'token'
 export const me = createAsyncThunk('auth/me', async () => {
     const token = window.localStorage.getItem(TOKEN)
     try {
+        console.log('Line 16 token>>>>', token)
         if (token) {
             const res = await axios.get('/auth/me', {
                 headers: {

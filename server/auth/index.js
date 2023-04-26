@@ -5,7 +5,9 @@ const User = require('../db/models/User')
 //Post/auth/login
 router.post('/login', async (req, res, next) => {
     try {
-        const token = await User.authenticate(req.body)
+        let user = req.headers.authorization
+        console.log('LINE 9 USER>>>>>', user)
+        const token = await User.authenticate(user.email, user.password)
         res.send(token)
     } catch (err) {
         next(err)
