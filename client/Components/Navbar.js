@@ -29,7 +29,7 @@ const Navbar = () => {
                         </button>
                     </div>
                 ) : (
-                    <div class="navbar-line">
+                    <div className="navbar-line">
                         {/* The navbar will show these links before you log in */}
                         <Link className="home" to="/home">
                             Products

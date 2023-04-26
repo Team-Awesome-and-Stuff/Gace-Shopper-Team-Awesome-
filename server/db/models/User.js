@@ -48,47 +48,22 @@ User.prototype.generateToken = function () {
  * classMethods
  */
 // used in the login auth route 
-User.authenticate = async function ({ email, password }) {
-    const user = await this.findOne({ where: { email } })
-
-    if (!user) {
-        throw new Error('User not found')
+User.authenticate = async function ({ username, password }) {
+    const user = await this.findOne({ where: { username } })
+    if (!user || !(await user.correctPassword(password))) {
+        const error = Error('Incorrect username/password')
+        error.status = 401
+        throw error
     }
-
-    const match = await user.correctPassword(password, user.password)
-
-    if (!match) {
-        throw new Error('Invalid login credentials')
-    }
-
-    const token = await user.generateToken()
-
-    return token
+    return user.generateToken()
 }
 
-// User.authenticateUserToken = async (req, res, next) => {
-//     try {
-//         const authHeader = req.headers.authorization
-//         if (!authHeader) {
-//             throw new Error('Not authorized')
-//         }
-//         const token = authHeader.split(' ')[1]
-//         const user = await User.findByToken(token)
-//         if (!user) {
-//             throw new Error('User not found')
-//         }
-//         req.user = user
-//         next()
-//     } catch (err) {
-//         next(err)
-//     }
-// }
+
 
 User.findByToken = async function (token) {
     try {
         const { id } = jwt.verify(token, process.env.JWT_SECRET)
-        const stringyId = id.toString()
-        const user = await User.findByPk(stringyId)
+        const user = await User.findByPk(id)
         if (!user) {
             throw new Error('User not found')
         }
@@ -100,26 +75,7 @@ User.findByToken = async function (token) {
     }
 }
 
-User.getOrder = async function (userId) {
-    try {
-        const order = await Order.findOne({
-            where: { userId, status: 'active' },
-            include: [{ model: OrderProduct, include: Product }],
-        })
 
-        return order
-    } catch (error) {
-        throw error
-    }
-}
-
-User.adminCheck = async function (token) {
-    const user = await User.findByToken(token)
-    if (!user.isAdmin) {
-        return res.status(401).json({ error: 'Unauthorized' })
-    }
-    return user
-}
 
 /**
  * hooks

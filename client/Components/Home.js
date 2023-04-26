@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import Products from './Products'
+import AuthForm from '../auth/AuthForm'
 
 /**
  * COMPONENT
@@ -10,6 +11,7 @@ const Home = (props) => {
 
     return (
         <div>
+            {/* <AuthForm /> */}
             <Products />
         </div>
     )

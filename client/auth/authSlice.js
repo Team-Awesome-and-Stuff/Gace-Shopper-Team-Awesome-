@@ -34,10 +34,10 @@ export const me = createAsyncThunk('auth/me', async () => {
 
 export const authenticate = createAsyncThunk(
     'auth/authenticate',
-    async ({ username, password, method }, thunkAPI) => {
+    async ({ email, password, method }, thunkAPI) => {
         try {
             const res = await axios.post(`/auth/${method}`, {
-                username,
+                email,
                 password,
             })
             window.localStorage.setItem(TOKEN, res.data.token)
