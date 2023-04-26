@@ -69,7 +69,13 @@ async function seed() {
             price: 10.96,
             description: 'I love to express my potato',
             imageUrl: 'https://cdn.asotvinc.com/pimg/A6BF042204114CC9BD617EE751476201.jpg'
-        })
+        }),
+        Product.create({
+            name: 'Anti-snoring Nose Clips',
+            price: 5.96,
+            description: 'I love my nose clips',
+            imageUrl: 'https://cdn.asotvinc.com/pimg/385A874F782B456BBEB2C82CDF03C0FE.jpg'
+        }),
 
 
     ])
