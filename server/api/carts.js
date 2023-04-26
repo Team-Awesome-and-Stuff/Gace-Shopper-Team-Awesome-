@@ -29,7 +29,6 @@ router.post('/', userAuth, async (req, res, next) => {
     try {
         let user = req.user
         if (!user) return res.sendStatus(401)
-        // console.log('line 28 reaq.body>>>>', req.body)
         const cart = await Cart.create(req.body)
         res.json(cart)
     } catch (err) {
@@ -52,7 +51,7 @@ router.put('/:userid', userAuth, async (req, res, next) => {
 })
 
 //Delete/api/orders/id
-router.delete('/:userid', async (req, res, next) => {
+router.delete('/:userid', userAuth, async (req, res, next) => {
     try {
         const cart = await Cart.destroy({
             where: {

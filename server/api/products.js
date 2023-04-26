@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const Product = require('../db/models/Product')
+const { adminAuth } = require('../middlewares/authorize')
 
 //Get/api/product
 router.get('/', async (req, res, next) => {
@@ -22,7 +23,7 @@ router.get('/:id', async (req, res, next) => {
     }
 })
 //Post/api/product
-router.post('/', async (req, res, next) => {
+router.post('/', adminAuth, async (req, res, next) => {
     try {
     const product = await Product.create(req.body)
     res.json(product)
@@ -31,7 +32,7 @@ router.post('/', async (req, res, next) => {
     }
 })
 //Put/api/product/:id
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', adminAuth, async (req, res, next) => {
     try {
     const product = await Product.update(req.body, {
         where: {
@@ -44,7 +45,7 @@ router.put('/:id', async (req, res, next) => {
     }
 })
 //Delete/api/product/:id
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', adminAuth, async (req, res, next) => {
     try {
     const product = await Product.destroy({
         where: {

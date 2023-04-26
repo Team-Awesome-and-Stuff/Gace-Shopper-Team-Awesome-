@@ -6,7 +6,6 @@ const User = require('../db/models/User')
 router.post('/login', async (req, res, next) => {
     try {
         const token = await User.authenticate(req.body)
-        res.cookie('auth', token)
         res.send(token)
     } catch (err) {
         next(err)
@@ -22,7 +21,6 @@ router.post('/signup', async (req, res, next) => {
             password: password,
         })
         const token = await user.generateToken()
-        res.cookie('auth', token)
         res.send(token)
     } catch (err) {
         if (err.name === 'SequelizeUniqueConstraintError') {
